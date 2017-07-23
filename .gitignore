@@ -2,3 +2,9 @@
 #OS generated files #
 ##########
 .DS_Store
+
+#########
+#inner class in java
+#########
+Buttons$ColorListener.class
+Buttons$LabelListener.class
