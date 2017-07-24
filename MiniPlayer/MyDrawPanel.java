@@ -2,7 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import javax.sound.midi.*;
 
-class MyDrawPanel extends JPanel{
+class MyDrawPanel extends JPanel implements ControllerEventListener{
     boolean msg = false;
     
     public void controlChange(ShortMessage event){
