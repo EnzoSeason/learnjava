@@ -8,3 +8,6 @@
 #########
 Buttons$ColorListener.class
 Buttons$LabelListener.class
+
+MiniPlayer$MystartListener.class
+MiniPlayer$MystopListener.class
