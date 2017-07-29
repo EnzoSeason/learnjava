@@ -1,0 +1,13 @@
+class ThreadTwo implements Runnable{
+    Accum a = Accum.getAccum();
+    public void run(){
+        for(int x=0; x<99; x++){
+            increment();
+        }
+        System.out.println("two" + a.getCounter());
+    }
+    
+    private synchronized void increment(){
+        a.updateCounter(1);
+    }
+}
