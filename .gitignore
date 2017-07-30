@@ -11,3 +11,7 @@ Buttons$LabelListener.class
 
 MiniPlayer$MystartListener.class
 MiniPlayer$MystopListener.class
+
+chatclient$IncomingReader.class
+chatclient$SendButtonListener.class
+chatserver$ClientHandler.class
