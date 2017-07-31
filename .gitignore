@@ -15,3 +15,5 @@ MiniPlayer$MystopListener.class
 chatclient$IncomingReader.class
 chatclient$SendButtonListener.class
 chatserver$ClientHandler.class
+chatclient$HistoryButtonListener.class
+chatclient$SaveButtonListener.class
