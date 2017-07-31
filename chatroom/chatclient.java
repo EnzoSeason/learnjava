@@ -6,11 +6,14 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class chatclient{
+    JFrame frame;
     JTextArea incoming;
+    JTextArea history;
     JTextField outcoming;
     BufferedReader reader;
     PrintWriter writer;
     Socket sock;
+    ArrayList<String> fileList;
     
     public static void main(String[] args){
         chatclient client = new chatclient();
@@ -18,15 +21,15 @@ public class chatclient{
     }
     
     public void go(){
-
-        
         setGUI();
         setNET();
     }
     
     private void setGUI(){
-        JFrame frame = new JFrame("Simple ChatRoom");
+        frame = new JFrame("Simple ChatRoom");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         JPanel mainPanel = new JPanel();
+        frame.setBounds(30, 30, 300, 300);
         
         incoming = new JTextArea(15, 50);
         incoming.setLineWrap(true);
@@ -43,13 +46,35 @@ public class chatclient{
         JButton sendButton = new JButton("Send");
         sendButton.addActionListener(new SendButtonListener());
         
+        JButton saveButton = new JButton("Save");
+        saveButton.addActionListener(new SaveButtonListener());
+        
+        JButton historyButton = new JButton("History");
+        historyButton.addActionListener(new HistoryButtonListener());
+        
+        Box buttonbox = new Box(BoxLayout.Y_AXIS);
+        buttonbox.add(saveButton);
+        buttonbox.add(sendButton);
+        buttonbox.add(historyButton);
+        
+        history = new JTextArea(15, 50);
+        history.setLineWrap(true);
+        history.setWrapStyleWord(true);
+        history.setEditable(false);
+        JScrollPane hScroller = new JScrollPane(history);
+        hScroller.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+        hScroller.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        
         mainPanel.add(qScroller);
         mainPanel.add(outcoming);
-        mainPanel.add(sendButton);
+        mainPanel.add(buttonbox);
+        mainPanel.add(hScroller);
         
         frame.getContentPane().add(BorderLayout.CENTER, mainPanel);
-        frame.setSize(400, 500);
+        frame.setSize(800, 900);
         frame.setVisible(true);
+        
+        fileList = new ArrayList<String>();
         
     }
     private void setNET(){
@@ -74,6 +99,55 @@ public class chatclient{
             }
             outcoming.setText("");
             outcoming.requestFocus();
+        }
+    }
+    
+    public class HistoryButtonListener implements ActionListener{
+        public void actionPerformed(ActionEvent ev){
+            JFileChooser fileOpen = new JFileChooser();
+            fileOpen.showOpenDialog(frame);
+            loadFile(fileOpen.getSelectedFile());
+        }
+    }
+    
+    private void loadFile(File file){
+        fileList = new ArrayList<String>();
+        try{
+            BufferedReader loader = new BufferedReader(new FileReader(file));
+            String line = null;
+            history.setText("Chat History ! \n");
+            while((line = loader.readLine())!=null){
+                System.out.println("load"+line);
+                history.append(line+"\n");
+                history.paintImmediately(history.getBounds());
+            }
+            loader.close();
+        } catch (IOException ex){
+            ex.printStackTrace();
+        }
+    }
+    
+    public class SaveButtonListener implements ActionListener{
+        public void actionPerformed(ActionEvent ev){
+            String historydata = incoming.getText();
+            fileList.add(historydata);
+            
+            JFileChooser fileSave = new JFileChooser();
+            fileSave.showSaveDialog(frame);
+            saveFile(fileSave.getSelectedFile());
+        }
+    }
+    
+    private void saveFile(File file){
+        try{
+            BufferedWriter saver = new BufferedWriter(new FileWriter(file));
+            
+            for(String data:fileList){
+                saver.write(data);
+            }
+            saver.close();
+        } catch (IOException ex){
+            ex.printStackTrace();
         }
     }
     
