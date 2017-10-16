@@ -1,8 +1,12 @@
 Welcome Mark
 
-Tea + Milk + Size Venti
-Tea ,Milk , Size Venti $16.0
 
-Coffee + Milk + Size Tall
-Coffee ,Milk , Size Tall $15.0
-Total : $31.0
+Tea + Milk + Icecream + Size Grande
+Tea ,Milk .Icecream , Size Grande $22.0
+
+Tea + Milk + Icecream + Whip + Size Tall
+Tea ,Milk .Icecream. Whip , Size Tall $26.0
+
+Coffee + Milk + Size Venti
+Coffee ,Milk , Size Venti $18.0
+Total : $66.0
