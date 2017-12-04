@@ -17,7 +17,6 @@ public class DotcomBoost{
         targets.add(three);
         
         System.out.println("You have 3 targets to kill");
-        System.out.println("They are your dads if you are chinese");
         System.out.println("Have Fun :)");
         
         for(Dotcom cibe:targets){
